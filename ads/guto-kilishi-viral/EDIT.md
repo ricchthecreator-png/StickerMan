@@ -35,6 +35,13 @@
 | 10.7 | **ORDER NOW →** button pops, with a light sweep across it | Pop |
 | 10.9 | @GUTO KILISHI | Shimmer |
 
+## Real photos used
+- **Pack (front and back):** cut out of your studio render. It's the pack that tears open, spins in, gets the callouts, and lands on the end card.
+- **Exploding kilishi and bite piece:** every flying piece is filled with **real kilishi texture taken from your bowl photo**.
+- **Backgrounds:** your lifestyle photo (blurred and tinted) sits behind the hook, the callouts and the end card. The bowl of chilies burns behind the spice meter. Real kilishi sits behind "IT'S KILISHI."
+- **Word slams:** each word lands over a different real photo: the bowl, the studio pack, **your in-store photo**, the chilies, and kilishi up close.
+- **Montage:** the bowl of kilishi → the studio front and back → **your two real packs on the table** → the lifestyle hero shot.
+
 ## Claims (all from the pack)
 52g protein per 100g (nutrition panel) · 100% premium beef · beef, chili pepper and spices · "Traditional taste, modern standard" · "For those who appreciate good things."
 "Highly addictive" and "Proper hot" are playful lines, not product claims.
