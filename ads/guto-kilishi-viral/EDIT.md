@@ -40,6 +40,7 @@
 - **Exploding kilishi and bite piece:** every flying piece is filled with **real kilishi texture taken from your bowl photo**.
 - **Backgrounds:** your lifestyle photo (blurred and tinted) sits behind the hook, the callouts and the end card. The bowl of chilies burns behind the spice meter. Real kilishi sits behind "IT'S KILISHI."
 - **Word slams:** each word lands over a different real photo: the bowl, the studio pack, **your in-store photo**, the chilies, and kilishi up close.
+- **AI cutouts from your photos:** the **real bowl of kilishi** rises under "IT'S KILISHI." and sits on the end card. **Real dried chilies** push in during the spice meter, and a real chili is the one that slashes the screen. **Your real in-store pack** stands beside the studio pack on the end card. (Cutouts are in `assets/cut_*.png`.)
 - **Montage:** the bowl of kilishi → the studio front and back → **your two real packs on the table** → the lifestyle hero shot.
 
 ## Claims (all from the pack)
