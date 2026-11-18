@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ironsmoke Jerky Ad</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;background:#0b0907;}
+  canvas{display:block;width:100vw;max-width:calc(100vh*9/16);margin:0 auto;}
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// 10-second vertical (9:16) ad — deterministic: drawFrame(t) renders any moment.
+const W = 1080, H = 1920, DURATION = 10;
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+// ---------- palette ----------
+const C = {
+  bg: '#120d0a', ember: '#ff6a1a', emberHot: '#ffb347', cream: '#f6e7cb',
+  char: '#14100d', brownDark: '#3a1407', brown: '#7a3518', brownMid: '#5a240f'
+};
+const DISPLAY = '"Anton", Impact, "Arial Narrow", sans-serif';
+const BODY = '"Inter", "Helvetica Neue", Arial, sans-serif';
+
+// ---------- helpers ----------
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const prog=(t,a,b)=>clamp((t-a)/(b-a));
+const easeOutCubic=x=>1-Math.pow(1-x,3);
+const easeInCubic=x=>x*x*x;
+const easeInOut=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const easeOutBack=x=>{const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+function bounceOut(x){const n=7.5625,d=2.75;
+  if(x<1/d)return n*x*x; if(x<2/d)return n*(x-=1.5/d)*x+.75;
+  if(x<2.5/d)return n*(x-=2.25/d)*x+.9375; return n*(x-=2.625/d)*x+.984375;}
+function rrect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function spacing(px){ if('letterSpacing' in ctx) ctx.letterSpacing = px+'px'; }
+
+// ---------- particles ----------
+const rnd = mulberry32(7);
+const smoke = Array.from({length:34},()=>({x:rnd()*W, sp:60+rnd()*90, r:180+rnd()*260, off:rnd()*3000, ph:rnd()*6.28, a:.05+rnd()*.07}));
+const embers = Array.from({length:70},()=>({x:rnd()*W, sp:160+rnd()*320, r:2+rnd()*4.5, off:rnd()*3000, ph:rnd()*6.28, sw:20+rnd()*60, f:4+rnd()*8}));
+
+// ---------- jerky strip generator ----------
+function makeStrip(seed, len, wid){
+  const r = mulberry32(seed), N = 26, top=[], bot=[];
+  const bend = (r()-.5)*wid*.9;
+  for(let i=0;i<=N;i++){
+    const u=i/N, x=-len/2+u*len;
+    const prof = .55+.45*Math.pow(Math.sin(Math.PI*u),.45);
+    const cy = bend*Math.sin(Math.PI*u);
+    top.push([x + (i===0||i===N ? (r()-.5)*14 : 0), cy - wid/2*prof*(1+(r()-.5)*.22)]);
+    bot.push([x, cy + wid/2*prof*(1+(r()-.5)*.22)]);
+  }
+  const streaks = Array.from({length:7},()=>({y:(r()-.5)*wid*.7, x0:-len/2+r()*len*.3, x1:len/2-r()*len*.3, w:1.5+r()*3, a:.25+r()*.35}));
+  const flecks = Array.from({length:22},()=>({x:(r()-.5)*len*.9, y:(r()-.5)*wid*.6, rx:3+r()*12, ry:1.5+r()*3.5, a:.15+r()*.3}));
+  const pepper = Array.from({length:40},()=>({x:(r()-.5)*len*.92, y:(r()-.5)*wid*.7, s:1.5+r()*3}));
+  return {len,wid,bend,top,bot,streaks,flecks,pepper};
+}
+function stripPath(s){
+  ctx.beginPath(); ctx.moveTo(...s.top[0]);
+  for(const p of s.top) ctx.lineTo(...p);
+  for(let i=s.bot.length-1;i>=0;i--) ctx.lineTo(...s.bot[i]);
+  ctx.closePath();
+}
+function drawStrip(s,x,y,rot,sc,alpha=1){
+  ctx.save(); ctx.translate(x,y); ctx.rotate(rot); ctx.scale(sc,sc); ctx.globalAlpha*=alpha;
+  ctx.shadowColor='rgba(0,0,0,.55)'; ctx.shadowBlur=30; ctx.shadowOffsetY=14;
+  stripPath(s);
+  const g=ctx.createLinearGradient(0,-s.wid/2+s.bend*.5,0,s.wid/2+s.bend*.5);
+  g.addColorStop(0,'#2e0f05'); g.addColorStop(.35,C.brown); g.addColorStop(.6,C.brownMid); g.addColorStop(1,'#260b03');
+  ctx.fillStyle=g; ctx.fill();
+  ctx.shadowColor='transparent';
+  ctx.save(); stripPath(s); ctx.clip();
+  for(const k of s.streaks){ctx.strokeStyle=`rgba(25,6,0,${k.a})`;ctx.lineWidth=k.w;ctx.beginPath();
+    ctx.moveTo(k.x0,k.y+s.bend*.6);ctx.quadraticCurveTo(0,k.y+s.bend*1.1,k.x1,k.y+s.bend*.6);ctx.stroke();}
+  for(const f of s.flecks){ctx.fillStyle=`rgba(190,110,60,${f.a})`;ctx.beginPath();ctx.ellipse(f.x,f.y+s.bend*Math.sin(Math.PI*(f.x/s.len+.5)),f.rx,f.ry,0,0,6.283);ctx.fill();}
+  for(const p of s.pepper){ctx.fillStyle='rgba(10,4,2,.75)';ctx.fillRect(p.x,p.y+s.bend*Math.sin(Math.PI*(p.x/s.len+.5)),p.s,p.s);}
+  // glossy glaze highlight
+  ctx.strokeStyle='rgba(255,190,140,.28)'; ctx.lineWidth=s.wid*.12; ctx.beginPath();
+  s.top.forEach((p,i)=>{const yy=p[1]+s.wid*.16; i?ctx.lineTo(p[0],yy):ctx.moveTo(p[0],yy)}); ctx.stroke();
+  ctx.restore();
+  stripPath(s); ctx.strokeStyle='rgba(20,5,0,.7)'; ctx.lineWidth=3; ctx.stroke();
+  ctx.restore();
+}
+const hero = makeStrip(11, 900, 210);
+const fan = [21,32,43,54,65].map((s,i)=>makeStrip(s, 520+i%2*60, 110));
+const windowStrips = [77,88,99].map(s=>makeStrip(s, 520, 95));
+
+// ---------- flame icon ----------
+function flame(x,y,s,t){
+  ctx.save(); ctx.translate(x,y); ctx.scale(s,s*(1+.04*Math.sin(t*18)));
+  const g=ctx.createLinearGradient(0,-60,0,40); g.addColorStop(0,C.emberHot); g.addColorStop(1,C.ember);
+  ctx.fillStyle=g; ctx.beginPath(); ctx.moveTo(0,-62);
+  ctx.bezierCurveTo(28,-30,46,-6,40,14); ctx.bezierCurveTo(34,38,14,44,0,44);
+  ctx.bezierCurveTo(-14,44,-34,38,-40,14); ctx.bezierCurveTo(-46,-6,-18,-18,0,-62); ctx.fill();
+  ctx.fillStyle=C.char; ctx.beginPath(); ctx.moveTo(0,-8);
+  ctx.bezierCurveTo(14,8,20,18,16,28); ctx.bezierCurveTo(12,38,-12,38,-16,28); ctx.bezierCurveTo(-20,18,-10,10,0,-8); ctx.fill();
+  ctx.restore();
+}
+
+// ---------- the bag ----------
+function drawBag(x,y,sc,rot,t){
+  const w=560,h=800,hw=w/2,hh=h/2;
+  ctx.save(); ctx.translate(x,y); ctx.rotate(rot); ctx.scale(sc,sc);
+  // body
+  ctx.shadowColor='rgba(0,0,0,.7)'; ctx.shadowBlur=60; ctx.shadowOffsetY=30;
+  ctx.beginPath(); ctx.moveTo(-hw,-hh+70);
+  ctx.lineTo(hw,-hh+70); ctx.bezierCurveTo(hw+18,-80,hw+14,200,hw-6,hh-30);
+  ctx.quadraticCurveTo(hw-10,hh,hw-40,hh); ctx.lineTo(-hw+40,hh); ctx.quadraticCurveTo(-hw+10,hh,-hw+6,hh-30);
+  ctx.bezierCurveTo(-hw-14,200,-hw-18,-80,-hw,-hh+70); ctx.closePath();
+  const g=ctx.createLinearGradient(-hw,0,hw,0);
+  g.addColorStop(0,'#0f0c0a'); g.addColorStop(.18,'#2d2520'); g.addColorStop(.5,'#1d1814'); g.addColorStop(.85,'#26201b'); g.addColorStop(1,'#0c0a08');
+  ctx.fillStyle=g; ctx.fill(); ctx.shadowColor='transparent';
+  ctx.save(); ctx.clip();
+  // orange band
+  ctx.fillStyle=C.ember; ctx.fillRect(-hw-30,-110,w+60,86);
+  // window with jerky
+  rrect(-205,10,410,230,36); ctx.fillStyle='#2a0f05'; ctx.fill();
+  ctx.save(); rrect(-205,10,410,230,36); ctx.clip();
+  drawStrip(windowStrips[0],-30,70,-.12,1,1); drawStrip(windowStrips[1],40,140,.1,1,1); drawStrip(windowStrips[2],-10,215,-.05,1,1);
+  const wg=ctx.createLinearGradient(-205,10,205,240); wg.addColorStop(0,'rgba(255,255,255,.18)'); wg.addColorStop(.4,'rgba(255,255,255,0)'); ctx.fillStyle=wg; ctx.fillRect(-205,10,410,230);
+  ctx.restore();
+  rrect(-205,10,410,230,36); ctx.strokeStyle='rgba(246,231,203,.35)'; ctx.lineWidth=3; ctx.stroke();
+  // sheen
+  const sh=ctx.createLinearGradient(-hw,0,-hw+180,0); sh.addColorStop(0,'rgba(255,255,255,0)'); sh.addColorStop(.5,'rgba(255,240,220,.07)'); sh.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=sh; ctx.fillRect(-hw,-hh,180,h);
+  ctx.restore();
+  // crimp top
+  ctx.fillStyle='#0a0807'; ctx.beginPath(); ctx.moveTo(-hw,-hh+70);
+  const teeth=28; for(let i=0;i<=teeth;i++){ctx.lineTo(-hw+i*w/teeth,-hh+(i%2?0:10));}
+  ctx.lineTo(hw,-hh+70); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,.07)'; ctx.lineWidth=2;
+  for(let k=0;k<5;k++){ctx.beginPath();ctx.moveTo(-hw+8,-hh+20+k*10);ctx.lineTo(hw-8,-hh+20+k*10);ctx.stroke();}
+  ctx.fillStyle='#000'; ctx.beginPath(); ctx.moveTo(hw,-hh+40); ctx.lineTo(hw-16,-hh+48); ctx.lineTo(hw,-hh+56); ctx.fill();
+  // label text
+  flame(0,-272,.68,t);
+  ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+  ctx.fillStyle=C.cream; ctx.font=`118px ${DISPLAY}`; spacing(4); ctx.fillText('IRONSMOKE',0,-128);
+  ctx.fillStyle=C.char; ctx.font=`64px ${DISPLAY}`; spacing(10); ctx.fillText('BEEF JERKY',0,-42);
+  ctx.fillStyle=C.cream; ctx.font=`800 30px ${BODY}`; spacing(6); ctx.fillText('ORIGINAL  ·  HICKORY SMOKED',0,300);
+  ctx.fillStyle='rgba(246,231,203,.55)'; ctx.font=`600 22px ${BODY}`; spacing(3); ctx.fillText('NET WT 3.25 OZ (92 g)',0,350);
+  spacing(0);
+  ctx.restore();
+}
+
+// ---------- text ----------
+function stamp(text,x,y,size,p,color,font=DISPLAY,weight=''){
+  if(p<=0) return;
+  const e=easeOutBack(clamp(p)); const s=lerp(2.4,1,clamp(e,0,1.2)); const a=clamp(p*3.5);
+  ctx.save(); ctx.translate(x,y); ctx.scale(s,s); ctx.globalAlpha*=a;
+  ctx.font=`${weight} ${size}px ${font}`; ctx.textAlign='center'; ctx.textBaseline='middle'; spacing(size*.02);
+  ctx.shadowColor='rgba(0,0,0,.6)'; ctx.shadowBlur=24; ctx.shadowOffsetY=8;
+  ctx.fillStyle=color; ctx.fillText(text,0,0); spacing(0); ctx.restore();
+}
+function badge(label,sub,x,y,p,icon){
+  if(p<=0) return;
+  const e=easeOutBack(clamp(p)); ctx.save(); ctx.translate(lerp(W+500,x,e),y);
+  rrect(-390,-66,780,132,66); ctx.fillStyle='rgba(20,14,10,.88)'; ctx.fill();
+  ctx.strokeStyle=C.ember; ctx.lineWidth=4; ctx.stroke();
+  ctx.fillStyle=C.ember; ctx.beginPath(); ctx.arc(-322,0,46,0,6.283); ctx.fill();
+  ctx.fillStyle=C.char; ctx.strokeStyle=C.char; ctx.lineWidth=9; ctx.lineCap='round'; ctx.lineJoin='round';
+  if(icon==='check'){ctx.beginPath();ctx.moveTo(-342,2);ctx.lineTo(-328,18);ctx.lineTo(-302,-14);ctx.stroke();}
+  else {ctx.font=`38px ${DISPLAY}`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(icon,-322,2);}
+  ctx.textAlign='left'; ctx.textBaseline='middle';
+  ctx.fillStyle=C.cream; ctx.font=`58px ${DISPLAY}`; spacing(2); ctx.fillText(label,-248,-12);
+  ctx.fillStyle='rgba(246,231,203,.6)'; ctx.font=`600 24px ${BODY}`; spacing(3); ctx.fillText(sub,-246,38);
+  spacing(0); ctx.restore();
+}
+
+// ---------- camera shake from impacts ----------
+const IMPACTS=[[.35,26],[.95,30],[2.36,40],[3.1,16],[8.2,18],[8.5,22]];
+function shake(t){let x=0,y=0;for(const [ti,a] of IMPACTS){const d=t-ti;if(d>0&&d<.6){const k=a*Math.exp(-d*9);x+=k*Math.sin(d*71);y+=k*Math.cos(d*93);}}return [x,y];}
+
+// ---------- background ----------
+function background(t){
+  ctx.fillStyle=C.bg; ctx.fillRect(0,0,W,H);
+  const flick=.85+.08*Math.sin(t*9)+.06*Math.sin(t*23.7);
+  let g=ctx.createRadialGradient(W/2,H+120,50,W/2,H+120,1250);
+  g.addColorStop(0,`rgba(255,106,26,${.55*flick})`); g.addColorStop(.35,`rgba(150,45,10,${.32*flick})`); g.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  for(const s of smoke){
+    const y=H+300-((t*s.sp+s.off)%(H+600)); const x=s.x+Math.sin(t*.6+s.ph)*80;
+    const r=s.r*(1+(H-y)/H*.6);
+    const sg=ctx.createRadialGradient(x,y,0,x,y,r); sg.addColorStop(0,`rgba(200,170,150,${s.a})`); sg.addColorStop(1,'rgba(200,170,150,0)');
+    ctx.fillStyle=sg; ctx.fillRect(x-r,y-r,2*r,2*r);
+  }
+}
+function foregroundEmbers(t){
+  ctx.save(); ctx.globalCompositeOperation='lighter';
+  for(const e of embers){
+    const y=H+40-((t*e.sp+e.off)%(H+200)); const x=e.x+Math.sin(t*1.7+e.ph)*e.sw;
+    const a=clamp((.55+.45*Math.sin(t*e.f+e.ph))*(y/H+.15));
+    ctx.fillStyle=`rgba(255,${130+Math.floor(80*a)},40,${a})`; ctx.beginPath(); ctx.arc(x,y,e.r,0,6.283); ctx.fill();
+  }
+  ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H/2,H*.3,W/2,H/2,H*.75); v.addColorStop(0,'rgba(0,0,0,0)'); v.addColorStop(1,'rgba(0,0,0,.6)');
+  ctx.fillStyle=v; ctx.fillRect(0,0,W,H);
+}
+
+// ---------- main frame ----------
+function drawFrame(t){
+  ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha=1;
+  background(t);
+  const [sx,sy]=shake(t); ctx.save(); ctx.translate(sx,sy);
+
+  // SCENE 1 (0–2.15): extreme close-up hero strip + "SLOW. SMOKED."
+  if(t<2.2){
+    const out=easeInCubic(prog(t,1.75,2.15)); const z=1+out*.5; const a=1-out;
+    ctx.save(); ctx.translate(W/2,H/2); ctx.scale(z,z); ctx.translate(-W/2,-H/2); ctx.globalAlpha=a;
+    const enter=easeOutCubic(prog(t,0,.4));
+    drawStrip(hero, lerp(-700,W/2,enter), 960, lerp(-.6,-.3,enter)+t*.03, 1.05+t*.05);
+    stamp('SLOW.',W/2,470,250,prog(t,.35,.75),C.cream);
+    stamp('SMOKED.',W/2,1470,250,prog(t,.95,1.35),C.ember);
+    ctx.restore();
+  }
+
+  // SCENES 2–4: bag + fanned strips
+  if(t>=2.1){
+    const drop=bounceOut(prog(t,2.1,2.85));
+    let by=lerp(-700,930,drop), bs=1, br=Math.sin(t*1.3)*.025;
+    by+=Math.sin(t*2)*8*prog(t,2.9,3.3);
+    const up=easeInOut(prog(t,5.0,5.5)); by=lerp(by,760+Math.sin(t*2)*8,up); bs=lerp(1,.85,up);
+    const end=easeInOut(prog(t,7.8,8.3)); by=lerp(by,700+Math.sin(t*2)*8,end); bs=lerp(bs,.8,end);
+    // fan strips behind bag
+    const f=easeOutBack(prog(t,2.45,3.05));
+    if(f>0){
+      const angs=[-1.05,-.55,0,.55,1.05];
+      fan.forEach((s,i)=>{
+        const ang=angs[i]*f+Math.sin(t*1.5+i)*.02; const rad=330*f*bs;
+        const px=W/2+Math.sin(ang)*rad, py=by-Math.cos(ang)*rad;
+        drawStrip(s,px,py,ang-Math.PI/2,bs*.95*clamp(f),clamp(f*2));
+      });
+    }
+    drawBag(W/2,by,bs,br,t);
+
+    // scene 2 headline
+    const h2out=1-prog(t,4.9,5.2);
+    ctx.save(); ctx.globalAlpha=h2out;
+    stamp('100% REAL BEEF',W/2,230,130,prog(t,3.1,3.45),C.cream);
+    ctx.restore();
+
+    // scene 3 badges
+    const bout=easeInCubic(prog(t,7.75,8.1));
+    ctx.save(); ctx.translate(-bout*1400,0);
+    badge('15G PROTEIN','PER SERVING',W/2,1300,prog(t,5.3,5.75),'15');
+    badge('SMOKED 12 HOURS','OVER REAL HICKORY',W/2,1470,prog(t,5.9,6.35),'12');
+    badge('NO ADDED JUNK','NO MSG · NO NITRITES ADDED',W/2,1640,prog(t,6.5,6.95),'check');
+    ctx.restore();
+
+    // scene 4 end card
+    stamp('CHEW ON',W/2,1240,150,prog(t,8.2,8.55),C.cream);
+    stamp('SOMETHING REAL.',W/2,1400,136,prog(t,8.5,8.85),C.ember);
+    const cta=prog(t,8.9,9.25);
+    if(cta>0){
+      const s=easeOutBack(cta)*(1+.035*Math.sin((t-8.9)*9)*prog(t,9.25,9.4));
+      ctx.save(); ctx.translate(W/2,1640); ctx.scale(s,s);
+      ctx.shadowColor='rgba(255,106,26,.6)'; ctx.shadowBlur=50;
+      rrect(-330,-70,660,140,70); ctx.fillStyle=C.ember; ctx.fill(); ctx.shadowColor='transparent';
+      ctx.fillStyle=C.char; ctx.font=`66px ${DISPLAY}`; ctx.textAlign='center'; ctx.textBaseline='middle'; spacing(4);
+      ctx.fillText('GRAB A BAG  →',0,4); spacing(0); ctx.restore();
+      ctx.save(); ctx.globalAlpha=clamp(cta*2); ctx.fillStyle='rgba(246,231,203,.7)'; ctx.font=`600 28px ${BODY}`;
+      ctx.textAlign='center'; spacing(5); ctx.fillText('IRONSMOKEJERKY.COM',W/2,1775); spacing(0); ctx.restore();
+    }
+  }
+  ctx.restore();
+  foregroundEmbers(t);
+
+  // transition flash at the scene cut
+  const fl=t<2.15?prog(t,1.95,2.15):1-prog(t,2.15,2.5);
+  if(fl>0){ctx.fillStyle=`rgba(255,170,90,${fl*.85})`;ctx.fillRect(0,0,W,H);}
+  // fade in / out
+  const fade=Math.max(1-prog(t,0,.15), prog(t,9.75,10));
+  if(fade>0){ctx.fillStyle=`rgba(0,0,0,${fade})`;ctx.fillRect(0,0,W,H);}
+}
+window.drawFrame=drawFrame;
+window.ready=document.fonts.load(`100px Anton`).then(()=>document.fonts.load(`800 30px Inter`)).then(()=>document.fonts.ready);
+
+if(!location.search.includes('render')){
+  window.ready.then(()=>{const t0=performance.now();(function loop(){drawFrame(((performance.now()-t0)/1000)%DURATION);requestAnimationFrame(loop);})();});
+}
+</script>
+</body>
+</html>
