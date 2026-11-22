@@ -17,10 +17,10 @@ SHOTS = [
     ("1A-street.mp4",     0.5, 0.0,  2.2),
     ("1B-phone.mp4",      1.0, 2.2,  3.7),
     ("2A-storefront.mp4", 0.0, 3.7,  5.8),
-    ("2B-fries.mp4",      0.8, 5.8,  7.5),
-    ("3A-burger.mp4",     1.9, 7.5,  8.2),
-    ("3B-bite.mp4",       1.0, 8.2,  8.8),
-    ("3C-wings.mp4",      0.8, 8.8, 10.0),
+    ("2B-fries.mp4",      0.8, 5.8,  7.35),
+    ("3A-burger.mp4",     1.9, 7.35, 7.95),
+    ("3B-bite.mp4",       1.0, 7.95, 8.56),
+    ("3C-wings.mp4",      0.8, 8.56, 10.0),
     ("4A-delivery.mp4",   1.0, 10.0, 12.6),
 ]
 END_START, TOTAL = 12.6, 15.0
@@ -45,10 +45,32 @@ filters.append(
 )
 labels.append(f"[v{n}]")
 args += ["-i", str(HERE / "music" / f"street13-mix-music-v{music}.mp3")]
-filters.append("".join(labels) + f"concat=n={n + 1}:v=1:a=0[outv]")
+music_idx = n + 1
+filters.append("".join(labels) + f"concat=n={n + 1}:v=1:a=0[base]")
+
+# Street 13 wordmark on the storefront sign: lights up on the beat drop (4.2s) and
+# stays on for the rest of the storefront shot.
+sign_start, sign_end = 4.2, SHOTS[2][3]
+args += ["-loop", "1", "-t", str(TOTAL), "-i", str(HERE / "overlays" / "sign.png")]
+filters.append(f"[{music_idx + 1}:v]format=rgba,fade=in:st={sign_start}:d=0.15:alpha=1[sign]")
+filters.append(f"[base][sign]overlay=enable='between(t,{sign_start},{sign_end})'[s0]")
+
+# Burned-in captions, timed to the voiceover.
+CAPTIONS = [
+    ("cap01", 0.10, 1.76), ("cap02", 2.50, 3.64), ("cap03", 4.30, 5.82),
+    ("cap04", 6.19, 7.30), ("cap05", 7.35, 8.50), ("cap06", 8.56, 9.75),
+    ("cap07", 9.95, 12.55), ("cap08", 12.84, TOTAL),
+]
+prev = "s0"
+for k, (name, a, b) in enumerate(CAPTIONS):
+    idx = music_idx + 2 + k
+    args += ["-i", str(HERE / "overlays" / f"{name}.png")]
+    nxt = "outv" if k == len(CAPTIONS) - 1 else f"c{k}"
+    filters.append(f"[{prev}][{idx}:v]overlay=enable='between(t,{a},{b})'[{nxt}]")
+    prev = nxt
 
 out = HERE / "street13-always-open-9x16.mp4"
-args += ["-filter_complex", ";".join(filters), "-map", "[outv]", "-map", f"{n + 1}:a",
+args += ["-filter_complex", ";".join(filters), "-map", "[outv]", "-map", f"{music_idx}:a",
          "-t", str(TOTAL), "-c:v", "libx264", "-preset", "medium", "-crf", "18",
          "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(out)]
 subprocess.run(args, check=True)
