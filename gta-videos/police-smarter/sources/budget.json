@@ -1,0 +1,6 @@
+{
+  "max_searches": 12,
+  "max_downloads": 20,
+  "min_gap_seconds": 6,
+  "max_height": 1080
+}

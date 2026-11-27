@@ -1,0 +1,9 @@
+sources/*.mp4
+sources/*.webm
+sources/*.part
+scans/
+renders/
+audio/*.wav
+music/
+cards/out/
+edit/cache/
