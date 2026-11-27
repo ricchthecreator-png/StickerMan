@@ -1,0 +1,10 @@
+/usr/local/bin/yt-dlp --ignore-config --no-playlist --no-overwrites --no-progress --retries 0 --fragment-retries 1 --extractor-retries 0 --socket-timeout 20 --concurrent-fragments 1 --limit-rate 6M --write-info-json --merge-output-format mp4 -f bv*[height<=1080][ext=mp4]+ba[ext=m4a]/bv*[height<=1080]+ba/b[height<=1080] -o /home/user/StickerMan/gta-videos/police-smarter/sources/tmpy60g5ja1/gta6_trailer1.%(ext)s -- https://www.youtube.com/watch?v=QdBZY2fkU-0
+
+[youtube] Extracting URL: https://www.youtube.com/watch?v=QdBZY2fkU-0
+[youtube] QdBZY2fkU-0: Downloading webpage
+WARNING: [youtube] QdBZY2fkU-0: Unable to download webpage: ('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden (agent proxy: no rule or network setting allows this host)')) (caused by ProxyError("('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden (agent proxy: no rule or network setting allows this host)'))")); please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template. Confirm you are on the latest version using  yt-dlp -U
+[youtube] QdBZY2fkU-0: Downloading initial data API JSON
+WARNING: [youtube] No supported JavaScript runtime could be found. Only deno is enabled by default; to use another runtime add  --js-runtimes RUNTIME[:PATH]  to your command/config. YouTube extraction without a JS runtime has been deprecated, and some formats may be missing. See  https://github.com/yt-dlp/yt-dlp/wiki/EJS  for details on installing one
+[youtube] QdBZY2fkU-0: Downloading visionos player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] QdBZY2fkU-0: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
