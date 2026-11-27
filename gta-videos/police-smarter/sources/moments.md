@@ -2,7 +2,7 @@
 
 Footage received via the user's iCloud shared album (YouTube downloads were bot-blocked). All four files are 640x360, so HUD details aren't readable: recreate HUD as cards.
 
-Files: `gta6_extended_look.mp4` (Rockstar, An Extended Look, 26:48), `clip_a.mp4` (Rockstar launch trailer, PS5 end card, 1:30), `clip_b.mp4` (Rockstar Trailer 2, 2:46), `clip_c.mp4` (Rockstar Trailer 1, 1:30). No GTA 5 footage yet.
+Files: `gta6_extended_look.mp4` (Rockstar, An Extended Look, 26:48), `clip_a.mp4` (Rockstar launch trailer, PS5 end card, 1:30), `clip_b.mp4` (Rockstar Trailer 2, 2:46), `clip_c.mp4` (Rockstar Trailer 1, 1:30). GTA 5: `gta5_clip1.mp4` (GTA Online police-escape clip, 2:10, 640x360, creator unknown: ask user for channel name for the credit).
 
 | File | In | Usable length | Game | What is visible | Audio worth hearing | Good for line |
 |---|---|---|---|---|---|---|
@@ -25,6 +25,12 @@ Files: `gta6_extended_look.mp4` (Rockstar, An Extended Look, 26:48), `clip_a.mp4
 | clip_c.mp4 | 21.8 | 1.5 s | GTA 6 | Crowded Vice City beach | | Ch1 "city this crowded" |
 | clip_b.mp4 | 45.3 | 4 s | GTA 6 | POV driving past police car | | Ch1/Ch5 |
 | clip_b.mp4 | 49.9 | 2 s | GTA 6 | Prison watchtower | | Ch7 record |
+| gta5_clip1.mp4 | 8 | 8 s | GTA Online (GTA 5) | Night chase in armoured vehicle, 4-5 stars, police cars, minimap | sirens | Ch5 "drive at you harder" |
+| gta5_clip1.mp4 | 72 | 6 s | GTA Online (GTA 5) | Phone: calling Lester, "Remove Wanted Level" menu | | Ch6 phone line (rewrite to "call Lester" or label GTA Online) |
+| gta5_clip1.mp4 | 84 | 12 s | GTA Online (GTA 5) | On foot, hiding along buildings, stars flashing | | Ch6 "get out of their sight... stars flash" |
+| gta5_clip1.mp4 | 96 | 3 s | GTA Online (GTA 5) | Minimap close-up, police vision cones (creator overlay text "LINE OF SIGHT / CONES" + red arrows) | | Cold open / flip side "dots and cones" (crop or blur creator text) |
+| gta5_clip1.mp4 | 108 | 4 s | GTA Online (GTA 5) | Crouched against wall, hiding | | Ch6 alley wait |
+| gta5_clip1.mp4 | 116 | 14 s | GTA Online (GTA 5) | Player standing calmly outside the POLICE DEPARTMENT, no stars, cop car parked | | Cold open line 1 "the cops forget you exist" (perfect) |
 | clip_a.mp4 | 25.7 | 1.5 s | GTA 6 | Jason and Lucia in convertible | | Ch3 couple |
 
 ## Discoveries
