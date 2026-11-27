@@ -17,7 +17,7 @@ Files: `gta6_extended_look.mp4` (Rockstar, An Extended Look, 26:48), `clip_a.mp4
 | gta6_extended_look.mp4 | 990 | 4 s | GTA 6 | Van leaving garage, minimap without police blips | | Flip side "no dots" |
 | gta6_extended_look.mp4 | 1024 | 4 s | GTA 6 | "WARNING WE OPERATE CAMERAS IN THIS AREA" sign, Lucia looks | | Ch2 CCTV (perfect) |
 | gta6_extended_look.mp4 | 1088 | 4 s | GTA 6 | Jason and Lucia on a motorcycle, daytime, stars top-right | engine | Ch5 motorcycle line (daytime, closest truthful) |
-| gta6_extended_look.mp4 | 690 | 4 s | GTA 6 | Robbery: masked pair in convenience store | | Ch1 clean job / Ch7 |
+| gta6_extended_look.mp4 | 720 | 4 s | GTA 6 | Robbery: masked pair in convenience store | | Ch1 clean job / Ch7 |
 | gta6_extended_look.mp4 | 1080 | 4 s | GTA 6 | Jewelry store robbery | | Ch7 profile |
 | gta6_extended_look.mp4 | 500 | 8 s | GTA 6 | Driving red convertible, minimap visible | | Ch4 car |
 | clip_c.mp4 | 6.6 | 4 s | GTA 6 | Lucia in prison, orange jumpsuit (Trailer 1 opening) | dialogue | Ch7 "first shot was Lucia in prison" |
