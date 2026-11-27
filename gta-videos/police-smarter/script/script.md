@@ -18,7 +18,7 @@ Status: **wanted** = footage still to find (YouTube is blocked in this environme
 | 6 | In GTA 5, every cop in the city was a dot on your minimap. In GTA 6, there are no dots. | GTA 5 minimap with blips and vision cones → GTA 6 minimap empty (card if no footage) | Tick on "no dots" | wanted / card |
 | 7 | And in GTA 5, the worst thing that could happen was five stars. In GTA 6, it's six, and a dog. | GTA 5 five-star HUD → six-star card → police K9 shot (trailer) | Hit on "dog" | wanted |
 | 8 | That last one isn't a joke. It happened in Rockstar's own demo, to Rockstar's own studio head. | Edge cover as photo card → Rob Nelson name card | | card |
-| 9 | One review put it simply: the police are "more attuned to your actions than ever." | Quote card, outlet line on top, phrase highlighted as read | Short drop before card | card / verify |
+| 9 | Read the reviews, and they all land on the same idea: these police are paying attention. | Quote card, outlet line on top, phrase highlighted as read | Short drop before card | card / verify |
 | 10 | So I went through every preview, the Rockstar interviews, the reviews, and the strategy guides people wrote in the first week, and I lined up every police feature against how GTA 5 did it. | Fast montage 0.7 s shots: magazine covers, article headlines, GTA 6 police shots | Music up slightly | card + wanted |
 | 11 | Here's the thing. These aren't separate features. Every one of them feeds the next one. | Chapter map, all seven nodes dim, lines faint | | card |
 | 12 | And there's one thing GTA 5 gave you in every single chase that GTA 6 took away completely. We'll get there. | GTA 5 chase from above, slow | | wanted |
@@ -73,7 +73,7 @@ Status: **wanted** = footage still to find (YouTube is blocked in this environme
 | 46 | In GTA 5, clothes did nothing for the police. You could rob the Vangelico jewelry store in a tuxedo, and no one would ever mention the tuxedo. | GTA 5 jewel store heist footage, crew in suits | | wanted |
 | 47 | Masks were the closest thing GTA 5 had to a disguise, and the cops ignored those too. A mask was a fashion choice. | GTA 5 character in heist mask in a shootout | | wanted |
 | 48 | In GTA 6, during IGN's demo, Rob Nelson tried the classic move. Mid-search, he put on a baseball cap and sunglasses. | GTA 6 character in cap (trailer); IGN photo card with name | | wanted / card |
-| 49 | And his verdict was: "they still know what I'm wearing." | Quote card, phrase highlighted | | card / verify |
+| 49 | And his verdict: they still know what he's wearing. | Quote card, phrase highlighted | | card / verify |
 | 50 | He was asked about haircuts too. A new haircut changes your appearance, he said, but the police still know your clothes. | GTA 6 barber / salon shot if in trailer, else quote card | | wanted / verify |
 | 51 | So: the hat doesn't work. The glasses don't work. The haircut doesn't work. | Three-item checklist, each crossed out | Three ticks, music chop | card |
 | 52 | What works is a whole new outfit. From a clothing store, or, and this is the clever bit, from the trunk of your own car. | GTA 6 clothing store (trailer) → car trunk opening | | wanted |
@@ -148,9 +148,9 @@ Status: **wanted** = footage still to find (YouTube is blocked in this environme
 | 106 | Hollow stars: units are responding, but they don't have eyes on you yet. Solid: they're chasing you. Flashing: they've lost you and they're searching. | Each state highlights as named | Three ticks | card |
 | 107 | And then a fourth state the guides describe in red: the chase is over, but the heat isn't. | Red stars | Hit | card |
 | 108 | That heat stays tied to the area. Remember the empty field from the start of this video? In GTA 6, that's exactly where you want to be. | GTA 5 empty field shot from Ch1 (callback), label "GTA V" | | wanted |
-| 109 | According to the guides, that's where the descriptions come in. The stars measure how hard they're looking. The icons measure what they're looking for. | Full HUD card: stars + all icons | | card |
-| 110 | Lose the stars, and they've stopped chasing. Lose the icons, and they've stopped knowing. | Stars fade, then icons fade one at a time | Ticks | card |
-| 111 | It's the crowded block you robbed that stays hot. The street you hit this afternoon is not the street you want to go shopping on tonight. | GTA 6 trailer: street at dusk, then night | | wanted |
+| 109 | It's the crowded block you robbed that stays hot. The street you hit this afternoon is not the street you want to go shopping on tonight. | GTA 6 trailer: street at dusk, then night | | wanted |
+| 110 | And that's where the descriptions come in. The stars measure how hard they're looking. The icons measure what they're looking for. | Full HUD card: stars + all icons | | card |
+| 111 | Lose the stars, and they've stopped chasing. Lose the icons, and they've stopped knowing. | Stars fade, then icons fade one at a time | Ticks | card |
 | 112 | So the old tricks might still help with the first part. Hide under a bridge, sure. But you come out from under that bridge in the same shirt. | GTA 5 bridge shot → GTA 6 coat-hanger icon card | Hit on "shirt" | wanted / card |
 | 113 | And some of it, you can't lose. | Black frame, hard cut | Bed out for 0.5 s | card |
 
@@ -194,14 +194,14 @@ Status: **wanted** = footage still to find (YouTube is blocked in this environme
 | 137 | And the big one. | GTA 5 chase from above, same as #12 (callback) | Music cuts out completely (music_drops) | wanted |
 | 138 | The police aren't on your minimap anymore. | GTA 5 minimap blips + vision cones, stamp "NOT IN GTA VI" | Silence under voice | wanted / card |
 | 139 | For thirteen years, every GTA 5 chase was a little game of watching red and blue dots and their little vision cones, and steering around them. | GTA 5 minimap, cones sweeping | Silence continues | wanted |
-| 140 | Rob Nelson said it plainly: the cops are off the map. You have to watch the street. | GTA 6 street, police cruiser passing in the background | Music returns | wanted / verify |
+| 140 | According to Rob Nelson, the cops are off the map now. You have to watch the street. | GTA 6 street, police cruiser passing in the background | Music returns | wanted / verify |
 
 ## Ending
 
 | # | Narration | What the viewer sees (exact moment) | Sound | Status |
 |---|---|---|---|---|
-| 141 | "More attuned to your actions than ever." | Same quote card as #9 | Short drop before | card / verify |
-| 142 | That's the whole change in one sentence. In GTA 5, the cops chased where you were. In GTA 6, they chase who you are. | Split: GTA 5 cop blips | GTA 6 coat-hanger icon | | card + wanted |
+| 141 | Remember what the reviews said? These police are paying attention. | Same quote card as #9 | Short drop before | card / verify |
+| 142 | That's the whole change. In GTA 5, the cops chased where you were. In GTA 6, they chase who you are. | Split: GTA 5 cop blips | GTA 6 coat-hanger icon | | card + wanted |
 | 143 | And every one of these feeds the next. | Chapter map, lines start drawing | Riser | card |
 | 144 | Someone sees you, so there's a report. The report has a description. The description has your shirt, your partner, and your car. The car gets the chase. The chase gets the dog. And when it's over, the search, and the record. | Map nodes 1→7 light in sequence on each clause, complete map | Tick per node | card |
 | 145 | The shirt a witness remembers. The partner you had to leave on the other side of the block. The car with a tracker you didn't check for. The dog. The red stars over a neighbourhood you can't go back to. And a profile that remembers all of it. | Quick visual recap of exact earlier shots: coat hanger, split screen, car, K9, red stars, meter | Ticks | card + wanted |

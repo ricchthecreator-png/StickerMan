@@ -1,6 +1,6 @@
 # Every Way GTA 6's Cops Are Smarter Than GTA 5's — narration only
 
-Read at a natural, quick pace. Section names are for you, not to be read. At ~180-195 words per minute this runs about 14-15 minutes.
+Section names are for you, not to be read.
 
 
 ## Cold open
@@ -21,7 +21,7 @@ And in GTA 5, the worst thing that could happen was five stars. In GTA 6, it's s
 
 That last one isn't a joke. It happened in Rockstar's own demo, to Rockstar's own studio head.
 
-One review put it simply: the police are "more attuned to your actions than ever."
+Read the reviews, and they all land on the same idea: these police are paying attention.
 
 So I went through every preview, the Rockstar interviews, the reviews, and the strategy guides people wrote in the first week, and I lined up every police feature against how GTA 5 did it.
 
@@ -110,7 +110,7 @@ Masks were the closest thing GTA 5 had to a disguise, and the cops ignored those
 
 In GTA 6, during IGN's demo, Rob Nelson tried the classic move. Mid-search, he put on a baseball cap and sunglasses.
 
-And his verdict was: "they still know what I'm wearing."
+And his verdict: they still know what he's wearing.
 
 He was asked about haircuts too. A new haircut changes your appearance, he said, but the police still know your clothes.
 
@@ -239,11 +239,11 @@ And then a fourth state the guides describe in red: the chase is over, but the h
 
 That heat stays tied to the area. Remember the empty field from the start of this video? In GTA 6, that's exactly where you want to be.
 
-According to the guides, that's where the descriptions come in. The stars measure how hard they're looking. The icons measure what they're looking for.
+It's the crowded block you robbed that stays hot. The street you hit this afternoon is not the street you want to go shopping on tonight.
+
+And that's where the descriptions come in. The stars measure how hard they're looking. The icons measure what they're looking for.
 
 Lose the stars, and they've stopped chasing. Lose the icons, and they've stopped knowing.
-
-It's the crowded block you robbed that stays hot. The street you hit this afternoon is not the street you want to go shopping on tonight.
 
 So the old tricks might still help with the first part. Hide under a bridge, sure. But you come out from under that bridge in the same shirt.
 
@@ -310,14 +310,14 @@ The police aren't on your minimap anymore.
 
 For thirteen years, every GTA 5 chase was a little game of watching red and blue dots and their little vision cones, and steering around them.
 
-Rob Nelson said it plainly: the cops are off the map. You have to watch the street.
+According to Rob Nelson, the cops are off the map now. You have to watch the street.
 
 
 ## Ending
 
-"More attuned to your actions than ever."
+Remember what the reviews said? These police are paying attention.
 
-That's the whole change in one sentence. In GTA 5, the cops chased where you were. In GTA 6, they chase who you are.
+That's the whole change. In GTA 5, the cops chased where you were. In GTA 6, they chase who you are.
 
 And every one of these feeds the next.
 
